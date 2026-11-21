@@ -3,20 +3,81 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
+<title>Cover Forge — multi-panel GTA-style cover art from your photos</title>
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 <main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
+  <aside class="panel">
+    <header class="brand">
+      <h1>Cover Forge</h1>
+      <p>Your photo, a caption, and the multi-panel poster look: Vice City grades, heavy poster lettering, exported as a PNG. All offline — photos never leave this machine.</p>
+    </header>
+
+    <section class="group" aria-labelledby="photo-heading">
+      <h2 id="photo-heading">1 · Photos</h2>
+      <div id="drop" class="drop">
+        <p><strong>Drop photos here</strong>, or</p>
+        <label class="file-btn">Choose photos<input id="file" type="file" accept="image/*" multiple hidden></label>
+        <p class="hint">One photo can fill every panel, or spread several across them.</p>
+      </div>
+      <div class="samples">
+        <span>No photo handy?</span>
+        <button type="button" class="chip" data-sample="pier">Add the pier sample</button>
+        <button type="button" class="chip" data-sample="boulevard">Add the boulevard sample</button>
+      </div>
+      <div id="strip" class="strip" aria-label="Loaded photos"></div>
+    </section>
+
+    <section class="group" aria-labelledby="layout-heading">
+      <h2 id="layout-heading">2 · Layout</h2>
+      <div id="layouts" class="opts"></div>
+    </section>
+
+    <section class="group" aria-labelledby="style-heading">
+      <h2 id="style-heading">3 · Grade</h2>
+      <div id="styles" class="opts"></div>
+    </section>
+
+    <section class="group" aria-labelledby="caption-heading">
+      <h2 id="caption-heading">4 · Caption</h2>
+      <label class="field">Title
+        <input id="caption" type="text" maxlength="42" value="Vice Nights">
+      </label>
+      <label class="field">Tagline
+        <input id="tagline" type="text" maxlength="60" value="welcome back to the coast">
+      </label>
+    </section>
+
+    <section class="group" aria-labelledby="panel-heading">
+      <h2 id="panel-heading">5 · Tune the panel</h2>
+      <p class="hint">Click a panel in the preview, drag to reposition its photo, scroll to zoom. Click a thumbnail above to send that photo to the selected panel.</p>
+      <div class="row">
+        <button id="panel-photo-prev" type="button">‹ Photo</button>
+        <button id="panel-photo-next" type="button">Photo ›</button>
+      </div>
+      <p id="panel-label" class="panel-label">Panel 1</p>
+      <label class="field">Zoom
+        <input id="zoom" type="range" min="1" max="4" step="0.01" value="1">
+      </label>
+      <div class="row">
+        <button id="spread" type="button">Spread photos</button>
+        <button id="same" type="button">One photo everywhere</button>
+        <button id="reset-panel" type="button">Reset panel</button>
+      </div>
+    </section>
+
+    <section class="group" aria-labelledby="export-heading">
+      <h2 id="export-heading">6 · Export</h2>
+      <div id="sizes" class="opts"></div>
+      <button id="export" type="button" class="export-btn">Export PNG</button>
+      <p id="status" role="status"></p>
+    </section>
+  </aside>
+
+  <section class="stage">
+    <canvas id="cover" width="1920" height="1080" aria-label="Cover preview"></canvas>
   </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
 </main>
 <script type="module" src="./src/main.js"></script>
 </body>
